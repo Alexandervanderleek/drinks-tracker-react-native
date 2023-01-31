@@ -25,16 +25,16 @@ export default function App() {
         backgroundColor: GlobalConstants.colors.LightBlue,
       },
       tabBarActiveTintColor: 'white',
-      tabBarInactiveTintColor: GlobalConstants.colors.weirdGreen,
-      headerRight: ({tintColor})=>(
-        <IconButton icon="add" size={24} color={tintColor} onPress={()=>{console.log("pressed")}}></IconButton>
-      )
+      tabBarInactiveTintColor: GlobalConstants.colors.weirdGreen
     }}>
 
       {/* Today's drinks componenet */}
-      <BottomTab.Screen name="TodaysDrinks" component={TodayDrink} options={{
+      <BottomTab.Screen name="TodaysDrinks" component={TodayDrink} options={({navigation})=>({
         title: 'Todays Drinks',
-      }}></BottomTab.Screen>
+        headerRight: ({tintColor})=>(
+        <IconButton icon="add" size={24} color={tintColor} onPress={()=>{navigation.navigate("AddDrink")}}></IconButton>
+      )
+      })}></BottomTab.Screen>
 
       {/* Analytics screen component */}
       <BottomTab.Screen name="Analytics" component={Analytics} options={{
@@ -62,7 +62,12 @@ export default function App() {
         }}></stack.Screen>
         
         <stack.Screen name="AddDrink" component={AddDrinks} options={{
-          presentation: 'modal'
+          presentation: 'modal',
+          headerStyle:{ backgroundColor: GlobalConstants.colors.LightBlue},
+          headerTintColor: 'black',
+          
+
+          
         }}>
 
         </stack.Screen>
