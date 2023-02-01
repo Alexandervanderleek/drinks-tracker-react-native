@@ -4,16 +4,20 @@ import { Ionicons} from '@expo/vector-icons'
 import { GlobalConstants } from '../util/constants'
 
 
-export default function PlusMinus() {
+export default function PlusMinus({newDrink}) {
 
   const [quantity, setQuantity] = useState(0);
 
+
+
   function addItemHandler(){
+    newDrink(quantity+1)
     setQuantity(quantity+1);
   }
 
   function removeItemHandler(){
     if(quantity>0){
+        newDrink(quantity-1);
         setQuantity(quantity-1);
     }
   }

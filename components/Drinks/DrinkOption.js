@@ -1,22 +1,34 @@
 import React from 'react'
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import { GlobalConstants } from '../../util/constants'
 import { MaterialCommunityIcons, Ionicons} from '@expo/vector-icons'
 import PlusMinus from '../PlusMinus';
 
-export default function DrinkOption({name,volume,strength, icon}) {
+export default function DrinkOption({item, newDrink}) {
     
     let IconComponent;
 
+    function addThisDrink(quantity){
+        newDrink({
+            id: item.id,
+            name: item.name,
+            icon: {
+                name: item.icon.name,
+                provider: 'MaterialCommunityIcons'
+            },
+            strength: item.strength,
+            volume: item.volume,
+            quantity: quantity
+        })
+    }
 
-
-    switch (icon.provider) {
+    switch (item.icon.provider) {
         case 'MaterialCommunityIcons':
-            IconComponent = <MaterialCommunityIcons name={icon.name} size={48} color="black" />
+            IconComponent = <MaterialCommunityIcons name={item.icon.name} size={58} color="black" />
             break;
         
         case 'Ionicons':
-            IconComponent = <Ionicons name={icon.name} size={48} color="black" />
+            IconComponent = <Ionicons name={item.icon.name} size={58} color="black" />
             break;
     
         default:
@@ -30,12 +42,12 @@ export default function DrinkOption({name,volume,strength, icon}) {
             {IconComponent}
         </View>
         <View style={styles.infoContainer}>
-            <Text style={{fontWeight: 'bold'}} >{name}</Text>
-            <Text style={{fontWeight: 'bold'}} >{volume} ml</Text>
-            <Text style={{fontWeight: 'bold'}} >{strength}%</Text>
-            <Text style={{fontWeight: 'bold'}}>{Math.round(volume*(strength/100))/10} units</Text>
+            <Text style={{fontWeight: 'bold', fontSize: 18}} >{item.name}</Text>
+            <Text style={{fontWeight: 'bold'}} >{item.volume} ml</Text>
+            <Text style={{fontWeight: 'bold'}} >{item.strength}%</Text>
+            <Text style={{fontWeight: 'bold'}}>{Math.round(item.volume*(item.strength/100))/10} units</Text>
         </View>
-        <PlusMinus></PlusMinus>
+        <PlusMinus newDrink={addThisDrink}></PlusMinus>
 
 
     </View>

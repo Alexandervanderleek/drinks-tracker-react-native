@@ -2,7 +2,8 @@ export const GlobalConstants = {
     colors:{
         LightBlue: '#74B3CE',
         darkBlue: '#172A3A',
-        weirdGreen: '#004346'
+        weirdGreen: '#004346',
+        brightBlue: '#2197F2'
     },
     DefaultDrinks:[
         {
