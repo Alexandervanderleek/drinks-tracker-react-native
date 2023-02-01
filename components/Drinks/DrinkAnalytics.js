@@ -21,7 +21,7 @@ export default function DrinkAnalytics() {
                 titleColor={GlobalConstants.colors.LightBlue}
                 titleStyle={{ fontWeight: 'bold' }}
                 circleBackgroundColor={GlobalConstants.colors.darkBlue}
-                activeStrokeColor={'red'}
+                activeStrokeColor={'cyan'}
                 // activeStrokeSecondaryColor={'#C3305D'}
                 inActiveStrokeColor={'white'}
                 progressFormatter={(value) => {
