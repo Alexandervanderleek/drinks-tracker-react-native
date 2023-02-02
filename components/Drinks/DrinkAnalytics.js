@@ -1,15 +1,20 @@
-import React from 'react'
+import { useNavigation } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import CircularProgress from 'react-native-circular-progress-indicator'
 import { GlobalConstants } from '../../util/constants';
+import { thisWeeksConsumed } from '../../util/database';
 import InfoText from '../util/InfoText';
 
-export default function DrinkAnalytics() {
+export default function DrinkAnalytics({units}) {
+
+    
+
   return (
     <View style={styles.container}>
         <View >
             <CircularProgress
-                value={10}
+                value={units}
                 maxValue={14}
                 radius={100}
                 duration={1000}

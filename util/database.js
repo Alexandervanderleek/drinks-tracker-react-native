@@ -109,3 +109,23 @@ export function todaysDrinks(){
 
     return promise;
 }
+
+export function thisWeeksConsumed(){
+    const promise = new Promise((resolve, reject)=>{
+        
+        var d = new Date();
+        d.setDate(d.getDate()-5);
+        database.transaction((transaction)=>{
+            transaction.executeSql(`
+                SELECT SUM(volume*strength/100*quantity) AS vol FROM drinks WHERE day >= ? 
+            `, [d.toISOString().substring(0,10)], (_,result)=>{
+                resolve(result.rows._array[0]);
+            },(_,error)=>{
+                console.log("error")
+                reject(error);
+            })
+        })
+    })
+
+    return promise;
+}

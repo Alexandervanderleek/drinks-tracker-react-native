@@ -24,7 +24,9 @@ export default function App() {
 
   useEffect(()=>{
     initDb().then(()=>{
-      setDbInited(true);
+      
+        setDbInited(true);
+     
     })
   },[])
 
