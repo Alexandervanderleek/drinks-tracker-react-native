@@ -23,9 +23,7 @@ export default function App() {
   const [dbInited, setDbInited] = useState(false);
 
   useEffect(()=>{
-    console.log("test")
     initDb().then(()=>{
-      console.log("then") 
       setDbInited(true);
     })
   },[])

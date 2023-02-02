@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { FlatList, StyleSheet, Text, View } from 'react-native'
+import { Alert, FlatList, StyleSheet, Text, View } from 'react-native'
 import Button from '../Button';
 import { GlobalConstants } from '../../util/constants'
 import DrinkOption from './DrinkOption'
 import { useNavigation } from '@react-navigation/native';
+import { addDrinks, todaysDrinks } from '../../util/database';
 
 export default function DrinkOptions() {
 
@@ -11,8 +12,15 @@ export default function DrinkOptions() {
 
   const [drinks, setDrink] = useState([]);
 
-  function drinksToDb(){
-    navigation.navigate('TodaysDrinks');
+  async function drinksToDb(){
+    if(drinks.length>0){
+      const currentDrinks =await todaysDrinks();
+      await addDrinks(drinks, currentDrinks);
+      navigation.navigate('TodaysDrinks');
+    }else{
+      Alert.alert("No Drinks","You have no drinks selected.\nTry adding drinks by pressing the plus icon.")
+    }
+    
   }
 
   function addDrink(newDrink){

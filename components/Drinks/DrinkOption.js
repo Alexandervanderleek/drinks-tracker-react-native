@@ -9,26 +9,29 @@ export default function DrinkOption({item, newDrink}) {
     let IconComponent;
 
     function addThisDrink(quantity){
+
+        const today = (new Date()).toISOString();
+
+
         newDrink({
             id: item.id,
             name: item.name,
-            icon: {
-                name: item.icon.name,
-                provider: 'MaterialCommunityIcons'
-            },
+            icon: item.icon,
+            provider: item.provider,
             strength: item.strength,
             volume: item.volume,
-            quantity: quantity
+            quantity: quantity,
+            date: today.substring(0,10)
         })
     }
 
-    switch (item.icon.provider) {
+    switch (item.provider) {
         case 'MaterialCommunityIcons':
-            IconComponent = <MaterialCommunityIcons name={item.icon.name} size={58} color="black" />
+            IconComponent = <MaterialCommunityIcons name={item.icon} size={58} color="black" />
             break;
         
         case 'Ionicons':
-            IconComponent = <Ionicons name={item.icon.name} size={58} color="black" />
+            IconComponent = <Ionicons name={item.icon} size={58} color="black" />
             break;
     
         default:

@@ -9,10 +9,8 @@ export const GlobalConstants = {
         {
             id: 101,
             name: 'Small Beer',
-            icon: {
-                name: 'beer',
-                provider: 'MaterialCommunityIcons'
-            },
+            icon: 'beer',
+            provider: 'MaterialCommunityIcons',
             strength: 4,
             volume: 330,
 
@@ -20,10 +18,8 @@ export const GlobalConstants = {
         {
             id: 102,
             name: 'Large Beer',
-            icon: {
-                name: 'beer',
-                provider: 'Ionicons'
-            },
+            icon: 'beer',
+            provider: 'Ionicons',
             strength: 4,
             volume: 500
         }
