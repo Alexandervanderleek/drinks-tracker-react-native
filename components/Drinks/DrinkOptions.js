@@ -3,10 +3,17 @@ import { FlatList, StyleSheet, Text, View } from 'react-native'
 import Button from '../Button';
 import { GlobalConstants } from '../../util/constants'
 import DrinkOption from './DrinkOption'
+import { useNavigation } from '@react-navigation/native';
 
 export default function DrinkOptions() {
 
+  const navigation = useNavigation();
+
   const [drinks, setDrink] = useState([]);
+
+  function drinksToDb(){
+    navigation.navigate('TodaysDrinks');
+  }
 
   function addDrink(newDrink){
      if(newDrink.quantity>0){
@@ -26,7 +33,7 @@ export default function DrinkOptions() {
   return (
     <View style={styles.container}>
      <View style={{margin: 12, borderRadius: 12}}>
-      <Button>ADD DRINKS</Button>
+      <Button onPress={drinksToDb}>ADD DRINKS</Button>
      </View>
     
     <FlatList
