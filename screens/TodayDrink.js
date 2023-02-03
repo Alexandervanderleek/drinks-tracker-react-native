@@ -1,37 +1,53 @@
+import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react'
-import { Alert, StyleSheet, Text, View } from 'react-native'
+import {  StyleSheet, View } from 'react-native'
 import DrinkAnalytics from '../components/Drinks/DrinkAnalytics'
 import DrinkList from '../components/Drinks/DrinksList';
 import { GlobalConstants } from '../util/constants'
-import { thisWeeksConsumed } from '../util/database';
+import { thisWeeksConsumed, todaysDrinks } from '../util/database';
+import * as SplashScreen from 'expo-splash-screen';
 
-export default function TodayDrink({navigation}) {
+SplashScreen.preventAutoHideAsync();
+
+
+
+export default function TodayDrink() {
 
   const [units, setUnits] = useState(0);
+  const [drinks, setDrinks] = useState(null);
 
-    function updateAnalytics(newUnits){
-      setUnits(units);
-    }
+  const isFocused = useIsFocused();
 
 
     useEffect(()=>{
-      const focusHandler = navigation.addListener('focus', () => {
-        thisWeeksConsumed().then((res)=>{
-          console.log("test")
-          console.log(res.vol)
-          setUnits(res.vol/10)
-      })
-    });
-    return focusHandler;
-       
-    },[units, setUnits,navigation])
+      async function helper(){
+        const units = await thisWeeksConsumed();
+        const today = await todaysDrinks();
+        setUnits(units.vol);
+        setDrinks(today);
+        
+      }
 
-  return (
-    <View style={styles.container}>
-        <DrinkAnalytics units={units}></DrinkAnalytics>
-        <DrinkList onAdd={updateAnalytics}></DrinkList>
-    </View>
-  )
+      helper();
+      console.log("using the effect done")
+    }, [isFocused]);
+    
+       
+    if(drinks != null){
+      console.log("our drinks are " +JSON.stringify(drinks))
+      SplashScreen.hideAsync();
+      return (
+        <View style={styles.container}>
+            <DrinkAnalytics units={units}></DrinkAnalytics>
+            <DrinkList drinks={drinks}></DrinkList>
+        </View>
+      )
+    }else{
+      return
+    }
+
+  
+ 
 }
 
 const styles = StyleSheet.create({
