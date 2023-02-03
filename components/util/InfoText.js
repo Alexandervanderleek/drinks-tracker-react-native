@@ -7,7 +7,7 @@ export default function InfoText({children, dataInput}) {
         <Text style={{fontWeight: 'bold', fontSize: 17}}>
             {children}
         </Text>
-        <Text style={{fontSize: 18}}>
+        <Text style={{fontWeight: 'bold',fontSize: 18}}>
             {dataInput}
         </Text>
 

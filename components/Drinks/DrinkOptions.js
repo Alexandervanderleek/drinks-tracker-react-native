@@ -15,7 +15,7 @@ export default function DrinkOptions() {
   async function drinksToDb(){
     if(drinks.length>0){
       const currentDrinks =await todaysDrinks();
-      await addDrinks(drinks, currentDrinks);
+      await addDrinks(drinks, currentDrinks.drinks);
       navigation.navigate('TodaysDrinks');
     }else{
       Alert.alert("No Drinks","You have no drinks selected.\nTry adding drinks by pressing the plus icon.")

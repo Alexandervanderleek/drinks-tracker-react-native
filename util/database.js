@@ -86,6 +86,7 @@ export function todaysDrinks(){
             `, [(new Date()).toISOString().substring(0,10)], (_,result)=>{
                 console.log(result);
                 const places = [];
+                let alch = 0;
 
                 for(const item of result.rows._array){
                     places.push({
@@ -98,9 +99,10 @@ export function todaysDrinks(){
                         quantity: item.quantity,
                         date: item.day
                     })
+                    alch += item.quantity * item.volume * (item.strength/100)
                 }
 
-                reslove(places);
+                reslove({drinks:places,alchohol: alch/10});
             },(_,error)=>{
                 reject(error);
             })

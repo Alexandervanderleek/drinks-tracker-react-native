@@ -54,9 +54,10 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         paddingVertical: 8,
         paddingLeft: 8,
-        marginVertical: 24,
-        marginHorizontal: 12,
-        
+        marginVertical: 12,
+        marginHorizontal: 10,
+        borderColor: 'black',
+        borderWidth: 2,
         backgroundColor: GlobalConstants.colors.LightBlue
     },
     innerContainer:{
