@@ -14,7 +14,7 @@ export default function DrinkOptions() {
 
   async function drinksToDb(){
     if(drinks.length>0){
-      const currentDrinks =await todaysDrinks();
+      const currentDrinks =await todaysDrinks((new Date()).toISOString().substring(0,10));
       await addDrinks(drinks, currentDrinks.drinks);
       navigation.navigate('TodaysDrinks');
     }else{

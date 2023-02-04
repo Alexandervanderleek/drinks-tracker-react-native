@@ -4,26 +4,9 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { GlobalConstants } from '../../util/constants';
 import { MaterialIcons } from '@expo/vector-icons';
 
-export default function Adrink({item}) {
+export default function Adrink({item, onPress}) {
   
     let IconComponent;
-
-    function addThisDrink(quantity){
-
-        const today = (new Date()).toISOString();
-
-
-        newDrink({
-            id: item.id,
-            name: item.name,
-            icon: item.icon,
-            provider: item.provider,
-            strength: item.strength,
-            volume: item.volume,
-            quantity: quantity,
-            date: today.substring(0,10)
-        })
-    }
 
     switch (item.provider) {
         case 'MaterialCommunityIcons':
@@ -60,7 +43,7 @@ export default function Adrink({item}) {
         </View>
 
         <View style={styles.quanityChange}>
-            <Pressable>
+            <Pressable onPress={onPress.bind(this, item.id)} style={({pressed})=>[pressed && styles.pressed]}>
                 <View style={styles.buttonThing}>
                     <Text style={{color: 'white', fontWeight: 'bold'}}>
                         DELETE 1
@@ -110,7 +93,11 @@ const styles = StyleSheet.create({
           backgroundColor: '#BC2020',
           padding: 6,
           borderRadius: 8
-        }
+    },
+    pressed:{
+        opacity: 0.75
+    }
+
     
     
 })

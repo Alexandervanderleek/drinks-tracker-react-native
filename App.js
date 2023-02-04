@@ -12,6 +12,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { GlobalConstants } from './util/constants';
 import { initDb } from './util/database';
 import { useEffect, useState } from 'react';
+import { Ionicons } from '@expo/vector-icons'; 
+import PreviousDays from './screens/PreviousDays';
+
 
 const BottomTab = createBottomTabNavigator();
 const stack = createStackNavigator();
@@ -53,21 +56,44 @@ export default function App() {
 
       {/* Today's drinks componenet */}
       <BottomTab.Screen name="TodaysDrinks" component={TodayDrink} options={({navigation})=>({
-        title: 'Todays Drinks',
+        title: 'Today',
+        tabBarIcon: ({color, size})=>(
+          <Ionicons name="today" size={size} color={color} />
+        )
+        ,
         headerRight: ({tintColor})=>(
         <IconButton icon="add" size={24} color={tintColor} onPress={()=>{navigation.navigate("AddDrink")}}></IconButton>
       )
       })}></BottomTab.Screen>
 
+      <BottomTab.Screen name="Past Drinks" component={PreviousDays} options={({navigation})=>({
+        title: 'Past Drinks',
+        tabBarIcon: ({color, size})=>(
+          <Ionicons name="beer-sharp" size={size} color={color} />
+        )
+        , headerRight: ({tintColor})=>(
+          <IconButton icon="add" size={24} color={tintColor} onPress={()=>{navigation.navigate("AddDrink")}}></IconButton>)
+      })}></BottomTab.Screen>
+
       {/* Analytics screen component */}
       <BottomTab.Screen name="Analytics" component={Analytics} options={{
-        title: 'Your Analytics',
+        title: 'Analytics',
+        tabBarIcon: ({color, size})=>(
+          <Ionicons name="analytics-sharp" size={size} color={color} />
+        )
+        ,
       }}></BottomTab.Screen>
 
       {/* Settings screen component */}
       <BottomTab.Screen name="Settings" component={Settings} options={{
         title: 'Settings',
+        tabBarIcon: ({color, size})=>(
+          <Ionicons name="settings" size={size} color={color} />
+        )
+        ,
       }}></BottomTab.Screen>
+
+     
 
     </BottomTab.Navigator>
   }

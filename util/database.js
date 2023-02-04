@@ -20,11 +20,11 @@ export function initDb(){
             )`,
             [],
             ()=>{
-                console.log("created db");
+
                 resolve();
             },
             (_, error)=>{
-                console.log("erro")
+
                 reject(error);
             }
             )
@@ -46,12 +46,11 @@ export function addDrinks(drinks, todaysDrinks){
                             `UPDATE drinks SET quantity = ? WHERE id = ?`,
                         [item.quantity+ todaysDrinks[index].quantity, todaysDrinks[index].id],
                         ()=>{
-                            console.log("success update");
+
                             resolve();
                         },
                         (_, error)=>{
-                            console.log("error update")
-                            console.log(error);
+
                             reject(error);
                         }
                         )
@@ -62,12 +61,9 @@ export function addDrinks(drinks, todaysDrinks){
                             VALUES (?, ?, ?, ?, ?, ?, ?)`,
                         [item.name, item.icon, item.provider, item.strength, item.volume, item.quantity, item.date],
                         ()=>{
-                            console.log("success adding");
                             resolve();
                         },
                         (_, error)=>{
-                            console.log("error adding")
-                            console.log(error);
                             reject(error);
                         }
                         )}
@@ -78,13 +74,12 @@ export function addDrinks(drinks, todaysDrinks){
     return promise;
 }
 
-export function todaysDrinks(){
+export function todaysDrinks(date){
     const promise = new Promise((reslove, reject)=>{
         database.transaction((transaction)=>{
             transaction.executeSql(`
                 SELECT * FROM drinks WHERE day = ? 
-            `, [(new Date()).toISOString().substring(0,10)], (_,result)=>{
-                console.log(result);
+            `, [date], (_,result)=>{
                 const places = [];
                 let alch = 0;
 
@@ -128,6 +123,66 @@ export function thisWeeksConsumed(){
                 
             },(_,error)=>{
                 console.log("error")
+                reject(error);
+            })
+        })
+    })
+
+    return promise;
+}
+
+
+export function deleteDrink(id, todaysDrinks){
+    const promise = new Promise((resolve, reject)=>{
+            const index = todaysDrinks.drinks.findIndex((x)=>{return x.id === id});
+            database.transaction((transaction)=>{
+
+                    if(todaysDrinks.drinks[index].quantity>1){
+                        transaction.executeSql(
+                            `UPDATE drinks SET quantity = ? WHERE id = ?`,
+                        [todaysDrinks.drinks[index].quantity-1 , id],
+                        ()=>{
+                            console.log("minus 1");
+                            resolve();
+                        },
+                        (_, error)=>{
+                            console.log("error minus")
+                            console.log(error);
+                            reject(error);
+                        }
+                        )
+                        
+                    }else{
+                        transaction.executeSql(
+                            `DELETE FROM drinks WHERE id = ?`,
+                        [id],
+                        ()=>{
+
+                            resolve();
+                        },
+                        (_, error)=>{
+
+                            reject(error);
+                        }
+                        )}
+                })
+        
+    });
+
+    return promise;
+}
+
+
+export function unitsCalculations(){
+    const promise = new Promise((reslove, reject)=>{
+        var d = new Date();
+        d.setDate(d.getDate()-30);
+        database.transaction((transaction)=>{
+            transaction.executeSql(`
+                SELECT SUM(volume*strength/100*quantity) as total, day FROM drinks WHERE day >= ? GROUP BY day 
+            `, [d.toISOString().substring(0,10)], (_,result)=>{
+                reslove(result.rows._array);
+            },(_,error)=>{
                 reject(error);
             })
         })

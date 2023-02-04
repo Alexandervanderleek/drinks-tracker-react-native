@@ -1,10 +1,10 @@
 import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react'
-import {  StyleSheet, Text, View } from 'react-native'
+import {  StyleSheet, View } from 'react-native'
 import DrinkAnalytics from '../components/Drinks/DrinkAnalytics'
 import DrinkList from '../components/Drinks/DrinksList';
 import { GlobalConstants } from '../util/constants'
-import { thisWeeksConsumed, todaysDrinks } from '../util/database';
+import { deleteDrink, thisWeeksConsumed, todaysDrinks } from '../util/database';
 import * as SplashScreen from 'expo-splash-screen';
 import TodayAnalytic from '../components/TodayAnalytic';
 
@@ -20,11 +20,18 @@ export default function TodayDrink() {
 
   const isFocused = useIsFocused();
 
+  async function removeDrink(id){
+    await deleteDrink(id, drinks);
+    const units = await thisWeeksConsumed();
+    const today = await todaysDrinks();
+    setUnits(units.vol);
+    setDrinks(today);
+  }
 
     useEffect(()=>{
       async function helper(){ 
         const units = await thisWeeksConsumed();
-        const today = await todaysDrinks();
+        const today = await todaysDrinks((new Date()).toISOString().substring(0,10));
         setUnits(units.vol);
         setDrinks(today);
         
@@ -40,7 +47,7 @@ export default function TodayDrink() {
         <View style={styles.container}>
             <DrinkAnalytics units={units}></DrinkAnalytics>
             <TodayAnalytic alc={drinks.alchohol}></TodayAnalytic>
-            <DrinkList drinks={drinks.drinks}></DrinkList>
+            <DrinkList drinks={drinks.drinks} onPress={removeDrink}></DrinkList>
         </View>
       )
     }else{

@@ -21,6 +21,7 @@ export default function DrinkAnalytics({units}) {
                 radius={80}
                 duration={1000}
                 valueSuffix={"/14"}
+                strokeLinecap={'square'}
                 progressValueColor={GlobalConstants.colors.LightBlue}
                 progressValueFontSize={24}
                 titleFontSize={14}
