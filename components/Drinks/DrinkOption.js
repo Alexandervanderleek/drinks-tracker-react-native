@@ -4,13 +4,13 @@ import { GlobalConstants } from '../../util/constants'
 import { MaterialCommunityIcons, Ionicons} from '@expo/vector-icons'
 import PlusMinus from '../PlusMinus';
 
-export default function DrinkOption({item, newDrink}) {
+export default function DrinkOption({item, newDrink, date}) {
     
     let IconComponent;
 
     function addThisDrink(quantity){
 
-        const today = (new Date()).toISOString();
+       
 
 
         newDrink({
@@ -21,7 +21,7 @@ export default function DrinkOption({item, newDrink}) {
             strength: item.strength,
             volume: item.volume,
             quantity: quantity,
-            date: today.substring(0,10)
+            date: date
         })
     }
 

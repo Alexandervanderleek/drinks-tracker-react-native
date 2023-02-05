@@ -17,13 +17,14 @@ export default function TodayDrink() {
   const [units, setUnits] = useState(0);
   const [drinks, setDrinks] = useState(null);
 
+  const thisDate = (new Date()).toISOString().substring(0,10)
 
   const isFocused = useIsFocused();
 
   async function removeDrink(id){
     await deleteDrink(id, drinks);
     const units = await thisWeeksConsumed();
-    const today = await todaysDrinks();
+    const today = await todaysDrinks(thisDate);
     setUnits(units.vol);
     setDrinks(today);
   }
@@ -31,10 +32,9 @@ export default function TodayDrink() {
     useEffect(()=>{
       async function helper(){ 
         const units = await thisWeeksConsumed();
-        const today = await todaysDrinks((new Date()).toISOString().substring(0,10));
+        const today = await todaysDrinks(thisDate);
         setUnits(units.vol);
         setDrinks(today);
-        
       }
 
       helper();

@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native'
 import { GlobalConstants } from '../util/constants'
 import { unitsCalculations } from '../util/database'
 import { useIsFocused } from '@react-navigation/native';
 import { LineChart } from "react-native-chart-kit";
-import * as SplashScreen from 'expo-splash-screen';
 import { Dimensions } from "react-native";
 const screenWidth = Dimensions.get("window").width;
 
 
-SplashScreen.preventAutoHideAsync();
 
 export default function Analytics() {
 
@@ -42,9 +40,14 @@ export default function Analytics() {
 
 
   if(typeof units === "undefined"){
-    return
-  }else{
-    SplashScreen.hideAsync();
+    return (
+      <View style={[styles.outerContainer, {justifyContent: 'center', alignContent:'center'}]}>
+           <ActivityIndicator size="large">
+
+          </ActivityIndicator>
+      </View>
+     
+    )
   }
 
   const chartConfig = {
@@ -84,6 +87,7 @@ export default function Analytics() {
   
   return (
    <View style={styles.outerContainer}>
+
     
     <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 12}}>
       <Text style={{fontWeight: 'bold',borderBottomWidth: 2, borderColor: 'white',color: 'white', fontSize: 24, marginBottom: 20}}>Past 7 Days Units Consumed</Text>

@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import { Alert, FlatList, StyleSheet, Text, View } from 'react-native'
+import { Alert, FlatList, StyleSheet, View } from 'react-native'
 import Button from '../Button';
 import { GlobalConstants } from '../../util/constants'
 import DrinkOption from './DrinkOption'
 import { useNavigation } from '@react-navigation/native';
 import { addDrinks, todaysDrinks } from '../../util/database';
 
-export default function DrinkOptions() {
+export default function DrinkOptions({date, isToday}) {
 
   const navigation = useNavigation();
 
@@ -14,9 +14,10 @@ export default function DrinkOptions() {
 
   async function drinksToDb(){
     if(drinks.length>0){
-      const currentDrinks =await todaysDrinks((new Date()).toISOString().substring(0,10));
+      const currentDrinks =await todaysDrinks(date);
       await addDrinks(drinks, currentDrinks.drinks);
-      navigation.navigate('TodaysDrinks');
+      
+      isToday ? navigation.navigate('TodaysDrinks') : navigation.navigate('PastDrinks');
     }else{
       Alert.alert("No Drinks","You have no drinks selected.\nTry adding drinks by pressing the plus icon.")
     }
@@ -47,7 +48,7 @@ export default function DrinkOptions() {
     <FlatList
         data={GlobalConstants.DefaultDrinks}
         keyExtractor={(item)=>item.id}
-        renderItem={({item})=>(<DrinkOption newDrink={addDrink} item={item}></DrinkOption>)}
+        renderItem={({item})=>(<DrinkOption newDrink={addDrink} date={date} item={item}></DrinkOption>)}
     
     ></FlatList>
     

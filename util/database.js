@@ -134,7 +134,9 @@ export function thisWeeksConsumed(){
 
 export function deleteDrink(id, todaysDrinks){
     const promise = new Promise((resolve, reject)=>{
+      
             const index = todaysDrinks.drinks.findIndex((x)=>{return x.id === id});
+            
             database.transaction((transaction)=>{
 
                     if(todaysDrinks.drinks[index].quantity>1){
@@ -157,7 +159,6 @@ export function deleteDrink(id, todaysDrinks){
                             `DELETE FROM drinks WHERE id = ?`,
                         [id],
                         ()=>{
-
                             resolve();
                         },
                         (_, error)=>{

@@ -23,6 +23,8 @@ SplashScreen.preventAutoHideAsync();
 
 export default function App() {
 
+  
+
   const [dbInited, setDbInited] = useState(false);
 
   useEffect(()=>{
@@ -56,7 +58,7 @@ export default function App() {
 
       {/* Today's drinks componenet */}
       <BottomTab.Screen name="TodaysDrinks" component={TodayDrink} options={({navigation})=>({
-        title: 'Today',
+        title: 'Todays Drinks',
         tabBarIcon: ({color, size})=>(
           <Ionicons name="today" size={size} color={color} />
         )
@@ -66,13 +68,12 @@ export default function App() {
       )
       })}></BottomTab.Screen>
 
-      <BottomTab.Screen name="Past Drinks" component={PreviousDays} options={({navigation})=>({
+      <BottomTab.Screen name="PastDrinks" component={PreviousDays} options={({navigation})=>({
         title: 'Past Drinks',
         tabBarIcon: ({color, size})=>(
           <Ionicons name="beer-sharp" size={size} color={color} />
         )
-        , headerRight: ({tintColor})=>(
-          <IconButton icon="add" size={24} color={tintColor} onPress={()=>{navigation.navigate("AddDrink")}}></IconButton>)
+       
       })}></BottomTab.Screen>
 
       {/* Analytics screen component */}

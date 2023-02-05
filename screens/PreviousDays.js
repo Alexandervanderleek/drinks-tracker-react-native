@@ -1,31 +1,51 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native'
 import { GlobalConstants } from '../util/constants'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Button from '../components/Button';
-import { todaysDrinks } from '../util/database';
+import { deleteDrink, todaysDrinks } from '../util/database';
 import DrinksList from '../components/Drinks/DrinksList';
+import IconButton from '../components/IconButton';
+import { useIsFocused } from '@react-navigation/native';
 
 
-export default function PreviousDays() {
+export default function PreviousDays({navigation}) {
     
+
     
     const today = new Date();
+    const thirtyAgo = new Date();
     today.setDate(today.getDate() - 1)
+    thirtyAgo.setDate(today.getDate()-28);
 
     const [formatDate, setFormated] = useState(today.toISOString().slice(0,10))
     const [date, setDate] = useState(today);
     const [show, setShow] = useState(false);
     const [drinks, setDrinks] = useState([])
     
+    const isFocused = useIsFocused();
+
+    async function removeDrink(id){
+        await deleteDrink(id, drinks);
+        
+        const today = await todaysDrinks(formatDate);
+        setDrinks(today);
+      }
+
+      
 
     useEffect(()=>{
         async function helper(){
             const drinks = await todaysDrinks(formatDate);
-            setDrinks(drinks.drinks);
+            setDrinks(drinks);
+            navigation.setOptions({
+                headerRight: ({tintColor}) => (
+                    <IconButton icon="add" size={24} color={tintColor} onPress={()=>{navigation.navigate("AddDrink",{date: formatDate})}}></IconButton>
+                  ),
+            })
         }
         helper();
-    },[formatDate])
+    },[formatDate,navigation, isFocused])
 
     const onChange = (event, selectedDate) => {
         setShow(false) 
@@ -38,6 +58,17 @@ export default function PreviousDays() {
         }
     }
 
+    if(typeof(drinks.drinks) === "undefined"){
+        return(
+            <View style={[styles.outerContainer,{justifyContent: 'center', alignItems: 'center'}]}>
+                <ActivityIndicator size={"large"}>
+
+                </ActivityIndicator>
+
+            </View>
+        )
+    }
+
     
     return (
     <View style={styles.outerContainer}>
@@ -48,13 +79,15 @@ export default function PreviousDays() {
            testID="dateTimePicker"
            value={date}
           mode={'date'}
+          minimumDate={thirtyAgo}
+          maximumDate={today}
           is24Hour={true}
           onChange={onChange}></DateTimePicker> 
           } 
         </View>
         <View style={ {flex: 1}}>
-            {drinks.length>0 && <DrinksList drinks={drinks} onPress={()=>{console.log("press")}}></DrinksList>}
-            {drinks.length<1 &&
+            {drinks.drinks.length>0 && <DrinksList drinks={drinks.drinks} onPress={removeDrink}></DrinksList>}
+            {drinks.drinks.length<1 &&
             <View  style={{flex: 1,justifyContent: 'center', alignItems: 'center'}}>
                 <Text style={{fontWeight: 'bold',color: 'white',fontSize: 18}}>No Drinks On This Day.</Text>
                 <Text style={{fontWeight: 'bold',color: 'white',fontSize: 18}}>Add Drinks by clicking the plus</Text>

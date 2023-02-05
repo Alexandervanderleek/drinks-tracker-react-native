@@ -5,7 +5,9 @@ import { GlobalConstants } from '../../util/constants';
 import InfoText from '../util/InfoText';
 
 export default function DrinkAnalytics({units}) {
-
+    if(!units){
+        units = 0;
+    }
 
   return (
     <View style={styles.outerContainer}>
