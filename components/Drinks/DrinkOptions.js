@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { Alert, FlatList, StyleSheet, View } from 'react-native'
+import { Alert, FlatList, StyleSheet, Text, View } from 'react-native'
 import Button from '../Button';
 import { GlobalConstants } from '../../util/constants'
 import DrinkOption from './DrinkOption'
 import { useNavigation } from '@react-navigation/native';
 import { addDrinks, todaysDrinks } from '../../util/database';
+import CustomDrinks from './CustomDrinks';
 
 export default function DrinkOptions({date, isToday}) {
 
@@ -44,7 +45,11 @@ export default function DrinkOptions({date, isToday}) {
      <View style={{margin: 12, borderRadius: 12}}>
       <Button onPress={drinksToDb}>ADD DRINKS</Button>
      </View>
-    
+
+     {/* Custom drink option */}
+     <Text style={styles.sectionTitle}> Custom Drinks </Text>
+    <CustomDrinks></CustomDrinks>
+    <Text style={styles.sectionTitle}> Default Drinks </Text>
     <FlatList
         data={GlobalConstants.DefaultDrinks}
         keyExtractor={(item)=>item.id}
@@ -59,5 +64,6 @@ export default function DrinkOptions({date, isToday}) {
 const styles = StyleSheet.create({
   container:{
     marginVertical: 12
-  }
+  },
+  sectionTitle:{borderBottomColor: 'white', marginBottom: 2, borderBottomWidth: 2, marginHorizontal: 12, paddingBottom: 4, fontSize: 24, fontWeight: 'bold', color: 'white', textAlign: 'center'}
 })
