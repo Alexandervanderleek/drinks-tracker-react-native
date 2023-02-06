@@ -9,6 +9,8 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.17.11",
+    "@react-native-community/datetimepicker": "6.5.2",
     "@react-navigation/bottom-tabs": "^6.5.3",
     "@react-navigation/native": "^6.1.2",
     "@react-navigation/native-stack": "^6.9.8",
@@ -22,8 +24,7 @@
     "react-native-chart-kit": "^6.12.0",
     "react-native-circular-progress-indicator": "^4.4.2",
     "react-native-reanimated": "~2.12.0",
-    "react-native-svg": "^13.4.0",
-    "@react-native-community/datetimepicker": "6.5.2"
+    "react-native-svg": "^13.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

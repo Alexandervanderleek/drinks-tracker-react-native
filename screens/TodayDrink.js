@@ -7,6 +7,7 @@ import { GlobalConstants } from '../util/constants'
 import { deleteDrink, thisWeeksConsumed, todaysDrinks } from '../util/database';
 import * as SplashScreen from 'expo-splash-screen';
 import TodayAnalytic from '../components/TodayAnalytic';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -16,6 +17,7 @@ export default function TodayDrink() {
 
   const [units, setUnits] = useState(0);
   const [drinks, setDrinks] = useState(null);
+  const [limitUnits, setLimitUnits] = useState("14");
 
   const thisDate = (new Date()).toISOString().substring(0,10)
 
@@ -30,9 +32,13 @@ export default function TodayDrink() {
   }
 
     useEffect(()=>{
+
+
       async function helper(){ 
         const units = await thisWeeksConsumed();
         const today = await todaysDrinks(thisDate);
+        const limitUnits  = await AsyncStorage.getItem("UNITS");
+        setLimitUnits(limitUnits);
         setUnits(units.vol);
         setDrinks(today);
       }
@@ -45,7 +51,7 @@ export default function TodayDrink() {
       SplashScreen.hideAsync();
       return (
         <View style={styles.container}>
-            <DrinkAnalytics units={units}></DrinkAnalytics>
+            <DrinkAnalytics units={units} limitUnits={limitUnits}></DrinkAnalytics>
             <TodayAnalytic alc={drinks.alchohol}></TodayAnalytic>
             <DrinkList drinks={drinks.drinks} onPress={removeDrink}></DrinkList>
         </View>

@@ -29,6 +29,23 @@ export function initDb(){
             }
             )
         })
+
+        const today = new Date();
+        today.setDate(today.getDate() - 30);
+
+        database.transaction((transaction)=>{
+            transaction.executeSql(
+                `DELETE FROM drinks WHERE day < ?`,
+            [today.toISOString().slice(0,10)],
+            ()=>{
+                resolve();
+            },
+            (_, error)=>{
+                console.log(error)
+                reject(error);
+            }
+            )
+        })
     });
 
     return promise;
@@ -183,6 +200,24 @@ export function unitsCalculations(){
                 SELECT SUM(volume*strength/100*quantity) as total, day FROM drinks WHERE day >= ? GROUP BY day 
             `, [d.toISOString().substring(0,10)], (_,result)=>{
                 reslove(result.rows._array);
+            },(_,error)=>{
+                reject(error);
+            })
+        })
+    })
+
+    return promise;
+}
+
+
+export function terminate(){
+    const promise = new Promise((reslove, reject)=>{
+       
+        database.transaction((transaction)=>{
+            transaction.executeSql(`
+                DELETE FROM drinks
+            `, [], (_,result)=>{
+                reslove(result);
             },(_,error)=>{
                 reject(error);
             })

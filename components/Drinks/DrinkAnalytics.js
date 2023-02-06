@@ -4,7 +4,7 @@ import CircularProgress from 'react-native-circular-progress-indicator'
 import { GlobalConstants } from '../../util/constants';
 import InfoText from '../util/InfoText';
 
-export default function DrinkAnalytics({units}) {
+export default function DrinkAnalytics({units, limitUnits}) {
     if(!units){
         units = 0;
     }
@@ -19,13 +19,13 @@ export default function DrinkAnalytics({units}) {
         <View >
             <CircularProgress
                 value={units/10}
-                maxValue={14}
+                maxValue={limitUnits}
                 radius={80}
                 duration={1000}
-                valueSuffix={"/14"}
+                valueSuffix={`/${limitUnits}`}
                 strokeLinecap={'square'}
                 progressValueColor={GlobalConstants.colors.LightBlue}
-                progressValueFontSize={24}
+                progressValueFontSize={20}
                 titleFontSize={14}
                 title={"units consumed"}
                 titleColor={GlobalConstants.colors.LightBlue}
@@ -37,12 +37,12 @@ export default function DrinkAnalytics({units}) {
                 progressFormatter={(value) => {
                     'worklet';
                     
-                    return value.toFixed(2); // 2 decimal places
+                    return value.toFixed(1); // 2 decimal places
                 }}
             />
         </View>
         <View style={styles.infoContainer}>
-                <InfoText dataInput={"14 units"}>Weekly Allowance:</InfoText>
+                <InfoText dataInput={`${limitUnits} units`}>Weekly Allowance:</InfoText>
                 <InfoText dataInput={`${units} ml`}>Alchohol consumed:</InfoText>
         </View>
        

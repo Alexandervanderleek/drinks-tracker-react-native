@@ -13,6 +13,8 @@ import { GlobalConstants } from './util/constants';
 import { initDb } from './util/database';
 import { useEffect, useState } from 'react';
 import { Ionicons } from '@expo/vector-icons'; 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import PreviousDays from './screens/PreviousDays';
 
 
@@ -28,10 +30,17 @@ export default function App() {
   const [dbInited, setDbInited] = useState(false);
 
   useEffect(()=>{
-    initDb().then(()=>{
+
+    async function helper(){
       
+        const units = await AsyncStorage.getItem('UNITS');
+        if(!units){
+          await AsyncStorage.setItem('UNITS', "14");
+        }
+    }
+    helper()
+    initDb().then(()=>{
         setDbInited(true);
-     
     })
   },[])
 
@@ -53,7 +62,8 @@ export default function App() {
         backgroundColor: GlobalConstants.colors.LightBlue,
       },
       tabBarActiveTintColor: 'white',
-      tabBarInactiveTintColor: GlobalConstants.colors.weirdGreen
+      tabBarInactiveTintColor: GlobalConstants.colors.weirdGreen,
+      tabBarHideOnKeyboard: true
     }}>
 
       {/* Today's drinks componenet */}
