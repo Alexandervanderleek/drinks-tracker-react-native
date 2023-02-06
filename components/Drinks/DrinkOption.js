@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { GlobalConstants } from '../../util/constants'
-import { MaterialCommunityIcons, Ionicons} from '@expo/vector-icons'
+import { MaterialCommunityIcons, Ionicons, MaterialIcons,FontAwesome5} from '@expo/vector-icons'
 import PlusMinus from '../PlusMinus';
 
 export default function DrinkOption({item, newDrink, date}) {
@@ -33,7 +33,10 @@ export default function DrinkOption({item, newDrink, date}) {
         case 'Ionicons':
             IconComponent = <Ionicons name={item.icon} size={58} color="black" />
             break;
-
+        case 'MaterialIcons':
+            IconComponent = <MaterialIcons name={item.icon} size={58} color="black" />
+            break;
+        
         
     
         default:

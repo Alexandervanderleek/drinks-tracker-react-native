@@ -10,7 +10,7 @@ export default function AddDrinks({route}) {
   const isToday = route.params ? false : true;
   return (
     <View style={styles.container}>
-     <DrinkOptions date={date} isToday={isToday}></DrinkOptions>
+      <DrinkOptions date={date} isToday={isToday}></DrinkOptions>
     </View>
   )
 }
@@ -19,6 +19,8 @@ export default function AddDrinks({route}) {
 const styles = StyleSheet.create({
   container:{
     flex: 1,
-    backgroundColor: GlobalConstants.colors.darkBlue
+    backgroundColor: GlobalConstants.colors.darkBlue,
+    borderTopColor: 'black',
+    borderTopWidth: 3
   }
 })

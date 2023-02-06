@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Alert, FlatList, StyleSheet, Text, View } from 'react-native'
+import { Alert, FlatList, ScrollView, StyleSheet, Text, View } from 'react-native'
 import Button from '../Button';
 import { GlobalConstants } from '../../util/constants'
 import DrinkOption from './DrinkOption'
@@ -42,7 +42,7 @@ export default function DrinkOptions({date, isToday}) {
 
   return (
     <View style={styles.container}>
-     <View style={{margin: 12, borderRadius: 12}}>
+     <View style={{margin: 8, borderRadius: 12}}>
       <Button onPress={drinksToDb}>ADD DRINKS</Button>
      </View>
 
@@ -50,12 +50,16 @@ export default function DrinkOptions({date, isToday}) {
      <Text style={styles.sectionTitle}> Custom Drinks </Text>
     <CustomDrinks date={date} newDrink={addDrink}></CustomDrinks>
     <Text style={styles.sectionTitle}> Default Drinks </Text>
-    <FlatList
-        data={GlobalConstants.DefaultDrinks}
-        keyExtractor={(item)=>item.id}
-        renderItem={({item})=>(<DrinkOption newDrink={addDrink} date={date} item={item}></DrinkOption>)}
+    <View style={{flex:1}}>
+      <FlatList
+            data={GlobalConstants.DefaultDrinks}
+            keyExtractor={(item)=>item.id}
+            renderItem={({item})=>(<DrinkOption newDrink={addDrink} date={date} item={item}></DrinkOption>)}
+        
+        ></FlatList>
     
-    ></FlatList>
+    </View>
+      
     
     </View>
   )
@@ -63,7 +67,8 @@ export default function DrinkOptions({date, isToday}) {
 
 const styles = StyleSheet.create({
   container:{
-    marginVertical: 12
+    marginVertical: 12,
+    flex: 1
   },
   sectionTitle:{borderBottomColor: 'white', marginBottom: 2, borderBottomWidth: 2, marginHorizontal: 12, paddingBottom: 4, fontSize: 24, fontWeight: 'bold', color: 'white', textAlign: 'center'}
 })

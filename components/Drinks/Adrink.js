@@ -18,6 +18,9 @@ export default function Adrink({item, onPress}) {
         case 'MaterialIcons':
             IconComponent = <MaterialIcons name={item.icon} size={58} color="black" />
             break;
+        case 'FontAwesome5':
+            IconComponent = <FontAwesome5  name={item.icon} size={58} color="black" />
+            break;
     
         default:
             break;
