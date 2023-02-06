@@ -131,9 +131,8 @@ export function thisWeeksConsumed(){
         d.setDate(d.getDate()-5);
         database.transaction((transaction)=>{
             transaction.executeSql(`
-                SELECT SUM(volume*strength/100*quantity) AS vol FROM drinks WHERE day >= ? 
+                SELECT SUM(volume*strength*quantity) AS vol FROM drinks WHERE day >= ? 
             `, [d.toISOString().substring(0,10)], (_,result)=>{
-                
                     resolve(result.rows._array[0]);
                 
                 

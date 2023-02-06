@@ -27,7 +27,7 @@ export default function TodayDrink() {
     await deleteDrink(id, drinks);
     const units = await thisWeeksConsumed();
     const today = await todaysDrinks(thisDate);
-    setUnits(units.vol);
+    setUnits(units.vol/100);
     setDrinks(today);
   }
 
@@ -39,7 +39,7 @@ export default function TodayDrink() {
         const today = await todaysDrinks(thisDate);
         const limitUnits  = await AsyncStorage.getItem("UNITS");
         setLimitUnits(limitUnits);
-        setUnits(units.vol);
+        setUnits(units.vol/100);
         setDrinks(today);
       }
 

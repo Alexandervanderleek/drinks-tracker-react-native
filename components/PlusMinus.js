@@ -9,7 +9,6 @@ export default function PlusMinus({newDrink}) {
   const [quantity, setQuantity] = useState(0);
 
 
-
   function addItemHandler(){
     newDrink(quantity+1)
     setQuantity(quantity+1);

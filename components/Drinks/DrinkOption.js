@@ -33,6 +33,8 @@ export default function DrinkOption({item, newDrink, date}) {
         case 'Ionicons':
             IconComponent = <Ionicons name={item.icon} size={58} color="black" />
             break;
+
+        
     
         default:
             break;

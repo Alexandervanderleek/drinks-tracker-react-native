@@ -48,7 +48,7 @@ export default function DrinkOptions({date, isToday}) {
 
      {/* Custom drink option */}
      <Text style={styles.sectionTitle}> Custom Drinks </Text>
-    <CustomDrinks></CustomDrinks>
+    <CustomDrinks date={date} newDrink={addDrink}></CustomDrinks>
     <Text style={styles.sectionTitle}> Default Drinks </Text>
     <FlatList
         data={GlobalConstants.DefaultDrinks}

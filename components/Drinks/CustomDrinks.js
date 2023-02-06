@@ -1,35 +1,35 @@
 import React, { useState } from 'react'
 import { Modal, StyleSheet, Text, TextInput, View } from 'react-native'
 import { GlobalConstants } from '../../util/constants'
-import { MaterialIcons} from '@expo/vector-icons'
+
 import PlusMinus from '../PlusMinus';
 import Button from '../Button';
 import NumericInput from 'react-native-numeric-input'
 
 
-export default function CustomDrinks() {
+export default function CustomDrinks({date, newDrink}) {
+
+   
+
+    const [visible, setIsVisible] = useState(false);
+    const [name, setName] = useState( "Negroni");
+    const [volume, setVolume] = useState(100);
+    const [strength, setStrength] = useState(24);
+
 
     function addThisDrink(quantity){
 
-       
-
-
         newDrink({
-            id: item.id,
-            name: item.name,
-            icon: item.icon,
-            provider: item.provider,
-            strength: item.strength,
-            volume: item.volume,
+            id: name+volume+strength,
+            name: name,
+            icon: "folder-special",
+            provider: 'MaterialIcons',
+            strength: strength,
+            volume: volume,
             quantity: quantity,
             date: date
         })
     }
-
-    const [visible, setIsVisible] = useState(false);
-    const [name, setName] = useState( "negroni");
-    const [volume, setVolume] = useState( 30);
-    const [strength, setStrength] = useState( 12);
   
     return (
    
@@ -43,7 +43,7 @@ export default function CustomDrinks() {
                     <TextInput value={name} onChangeText={(text)=>{setName(text)}} style={{minWidth: 225,color: '#EA3788',fontSize:24,fontWeight: 'bold', borderBottomColor: '#EA3788', borderBottomWidth: 2}}></TextInput>
                 </View>
                 <View style={styles.modalInput}>
-                    <Text style={styles.modalText}>Volume:</Text>
+                    <Text style={styles.modalText}>Volume</Text>
                     <NumericInput 
                         value={volume} 
                         onChange={value => setVolume(value)} 
@@ -62,7 +62,7 @@ export default function CustomDrinks() {
                         leftButtonBackgroundColor='#E56B70'/>
                 </View>
                 <View style={styles.modalInput}>
-                    <Text style={styles.modalText}>Strength:</Text>
+                    <Text style={styles.modalText}>Strength</Text>
                     <NumericInput 
                         value={strength} 
                         onChange={value => setStrength(value)} 
