@@ -7,7 +7,7 @@ export default function TodayAnalytic({alc}) {
     <View style={{marginHorizontal: 10, alignItems: 'center',backgroundColor: GlobalConstants.colors.LightBlue, borderColor: 'black',borderWidth: 2,
     padding: 8, marginBottom: 4,
     borderRadius: 8,}}>
-        <Text style={styles.title}>{`TODAY'S SUMMARY : ${alc.toFixed(1)} units / ${(alc*10).toFixed(1)} ml`}</Text>
+        <Text style={styles.title}>{`TODAY: ${alc.toFixed(1)} units / ${(alc*10).toFixed(1)} ml`}</Text>
     </View>
   )
 }

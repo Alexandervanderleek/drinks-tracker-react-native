@@ -42,7 +42,7 @@ export default function DrinkOptions({date, isToday}) {
 
   return (
     <View style={styles.container}>
-     <View style={{margin: 8, borderRadius: 12}}>
+     <View style={{ borderRadius: 12}}>
       <Button onPress={drinksToDb}>ADD DRINKS</Button>
      </View>
 

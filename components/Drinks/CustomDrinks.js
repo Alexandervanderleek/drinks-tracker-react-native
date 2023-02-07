@@ -40,15 +40,15 @@ export default function CustomDrinks({date, newDrink}) {
             <View style={styles.modalBack}>
                 <View style={styles.modalInput}>
                     <Text style={styles.modalText}>Name:</Text>
-                    <TextInput value={name} onChangeText={(text)=>{setName(text)}} style={{minWidth: 225,color: '#EA3788',fontSize:24,fontWeight: 'bold', borderBottomColor: '#EA3788', borderBottomWidth: 2}}></TextInput>
+                    <TextInput value={name} onChangeText={(text)=>{setName(text)}} style={{minWidth: 200,color: '#EA3788',fontSize:24,fontWeight: 'bold', borderBottomColor: '#EA3788', borderBottomWidth: 2}}></TextInput>
                 </View>
                 <View style={styles.modalInput}>
-                    <Text style={styles.modalText}>Volume</Text>
+                    <Text style={styles.modalText}>Volume:</Text>
                     <NumericInput 
                         value={volume} 
                         onChange={value => setVolume(value)} 
                         onLimitReached={(isMax,msg) => console.log(isMax,msg)}
-                        totalWidth={240} 
+                        totalWidth={200} 
                         totalHeight={50} 
                         iconSize={25}
                         step={10}
@@ -62,12 +62,12 @@ export default function CustomDrinks({date, newDrink}) {
                         leftButtonBackgroundColor='#E56B70'/>
                 </View>
                 <View style={styles.modalInput}>
-                    <Text style={styles.modalText}>Strength</Text>
+                    <Text style={styles.modalText}>Strength:</Text>
                     <NumericInput 
                         value={strength} 
                         onChange={value => setStrength(value)} 
                         onLimitReached={(isMax,msg) => console.log(isMax,msg)}
-                        totalWidth={240} 
+                        totalWidth={200} 
                         totalHeight={50} 
                         iconSize={25}
                         step={0.5}
@@ -84,35 +84,19 @@ export default function CustomDrinks({date, newDrink}) {
             </View>
             
         </Modal>
+
         <View style={styles.iconContainer}>
-            <View  style={styles.infoBox}>
-                <Button style={{borderColor: 'black',borderWidth: 2, borderRadius: 12}} onPress={()=>{setIsVisible(true)}}>
+             <Button style={{borderColor: 'black',borderWidth: 2, borderRadius: 12}} onPress={()=>{setIsVisible(true)}}>
                     EDIT
                 </Button>
-                
-            </View>
-        
-            <View style={styles.infoBox}>
-                <Text style={styles.titleBox}>Name</Text>
-                <Text style={{fontWeight: 'bold'}}>{name}</Text>
-            </View>
-            <View  style={styles.infoBox}>
-                <Text style={styles.titleBox}>Volume</Text>
-                <Text style={{fontWeight: 'bold'}}>{volume+" ml"}</Text>
-    
-            </View>
-            <View  style={styles.infoBox}>
-                <Text style={styles.titleBox}>Strength</Text>
-                <Text style={{fontWeight: 'bold'}}>{strength+ " %"}</Text>
-                
-            </View>
-           
-            
         </View>
-        <View style={{flexDirection: 'row'}}>
-           
-           <PlusMinus newDrink={addThisDrink}></PlusMinus>
+        <View style={styles.infoContainer}>
+            <Text style={{fontWeight: 'bold', fontSize: 14}} >{name}</Text>
+            <Text style={{fontWeight: 'bold'}} >{volume} ml</Text>
+            <Text style={{fontWeight: 'bold'}} >{strength}%</Text>
+            <Text style={{fontWeight: 'bold'}}>{Math.round(volume*(strength/100))/10} units</Text>
         </View>
+        <PlusMinus newDrink={addThisDrink}></PlusMinus>
 
 
     </View>
@@ -121,23 +105,21 @@ export default function CustomDrinks({date, newDrink}) {
 }
 
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create({  
     container:{
         backgroundColor: GlobalConstants.colors.LightBlue,
         borderRadius: 12,
         margin: 8,
         padding: 8,
+        flexDirection: 'row'
     },
     iconContainer:{
-        justifyContent: 'flex-start',
-        flexDirection: 'row'
+        justifyContent: 'center'
     }
     ,
     infoContainer:{
         flex: 1,        
-        alignItems: 'center',
-        borderColor: 'black',
-        borderWidth: 2
+        alignItems: 'center'
     },  
     infoBox:{
         flex: 1,

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native'
+import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { GlobalConstants } from '../util/constants'
 import { unitsCalculations } from '../util/database'
 import { useIsFocused } from '@react-navigation/native';
@@ -88,9 +88,9 @@ export default function Analytics() {
   return (
    <View style={styles.outerContainer}>
 
-    
-    <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 12}}>
-      <Text style={{fontWeight: 'bold',borderBottomWidth: 2, borderColor: 'white',color: 'white', fontSize: 24, marginBottom: 20}}>Past 7 Days Units Consumed</Text>
+    <ScrollView>
+    <View style={{ alignItems: 'center', marginTop: 12, flex: 1}}>
+      <Text style={{fontWeight: 'bold',color: 'white', fontSize: 24}}>Past 7 Days Units Consumed</Text>
       <LineChart
           style={{borderWidth: 2, borderColor: 'white', borderRadius: 8}}
           data={data}
@@ -101,8 +101,8 @@ export default function Analytics() {
         />
     </View>
 
-    <View style={{justifyContent: 'center', alignItems: 'center',marginTop: 12}}>
-      <Text style={{fontWeight: 'bold',borderBottomWidth: 2, borderColor: 'white',color: 'white', fontSize: 24, marginBottom: 20}} >Past 30 Days Units Consumed</Text>
+    <View style={{ alignItems: 'center',marginTop: 12, flex:1}}>
+      <Text style={{fontWeight: 'bold',color: 'white', fontSize: 24}} >Past 30 Days Units Consumed</Text>
       <LineChart
           style={{borderWidth: 2, borderColor: 'white', borderRadius: 8}}
           data={data1}
@@ -112,6 +112,7 @@ export default function Analytics() {
           bezier
         />
     </View>
+    </ScrollView>
    </View>
   )
 }

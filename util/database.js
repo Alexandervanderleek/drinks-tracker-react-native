@@ -160,7 +160,6 @@ export function deleteDrink(id, todaysDrinks){
                             `UPDATE drinks SET quantity = ? WHERE id = ?`,
                         [todaysDrinks.drinks[index].quantity-1 , id],
                         ()=>{
-                            console.log("minus 1");
                             resolve();
                         },
                         (_, error)=>{

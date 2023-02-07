@@ -34,7 +34,7 @@ export default function Adrink({item, onPress}) {
         </View>
         <View style={styles.infoContainer}>
             <View>
-                <Text style={{fontWeight: 'bold', fontSize: 18}} >{item.name}</Text>
+                <Text style={{fontWeight: 'bold', fontSize: 14}} >{item.name}</Text>
                 <Text style={{fontWeight: 'bold', fontSize: 14}} >{`x${item.quantity}`}</Text>
             </View>
            

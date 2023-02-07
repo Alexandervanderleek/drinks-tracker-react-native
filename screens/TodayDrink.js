@@ -44,6 +44,7 @@ export default function TodayDrink() {
       }
 
       helper();
+     
     }, [isFocused]);
     
        

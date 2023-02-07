@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "drinks-tracker",
+    "name": "Easy Drinks Tracker",
     "slug": "drinks-tracker",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -8,8 +8,8 @@
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "resizeMode": "cover",
+      "backgroundColor": "#172A3A"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -23,11 +23,17 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
+        "backgroundColor": "#FFFFFF00"
+      },
+      "package": "com.alexandervanderleek.drinkstracker"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "edd4ca32-0e82-4992-939d-3b786887a49b"
+      }
     }
   }
 }

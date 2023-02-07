@@ -1,14 +1,25 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import CircularProgress from 'react-native-circular-progress-indicator'
+import CircularProgress, { ProgressRef }  from 'react-native-circular-progress-indicator'
 import { GlobalConstants } from '../../util/constants';
 import InfoText from '../util/InfoText';
+
+
+
 
 export default function DrinkAnalytics({units, limitUnits}) {
     if(!units){
         units = 0;
     }
 
+    const [max, setMax] = useState("14");
+
+    if(max!=limitUnits){
+        console.log("setting")
+        setMax(limitUnits);
+    }
+
+    
 
   return (
     <View style={styles.outerContainer}>
@@ -18,17 +29,21 @@ export default function DrinkAnalytics({units, limitUnits}) {
     
     <View style={styles.innerContainer}>
         <View >
+           
             <CircularProgress
-                value={units/10}
-                maxValue={limitUnits}
-                radius={80}
+                value={((units/10)/limitUnits)*100}
+                showProgressValue={false}
+                maxValue={100}
+                radius={60}
                 duration={1000}
-                valueSuffix={`/${limitUnits}`}
+                valueSuffix={`${units/10}/${limitUnits}`}
                 strokeLinecap={'square'}
                 progressValueColor={GlobalConstants.colors.LightBlue}
-                progressValueFontSize={20}
-                titleFontSize={14}
-                title={"units consumed"}
+                progressValueFontSize={16}
+                subtitle={"units"}
+                subtitleColor={GlobalConstants.colors.LightBlue}
+                titleFontSize={16}
+                title={`${(units/10).toFixed(1)}/${limitUnits}`}
                 titleColor={GlobalConstants.colors.LightBlue}
                 titleStyle={{ fontWeight: 'bold' }}
                 circleBackgroundColor={GlobalConstants.colors.darkBlue}
@@ -41,6 +56,7 @@ export default function DrinkAnalytics({units, limitUnits}) {
                     return value.toFixed(1); // 2 decimal places
                 }}
             />
+             
         </View>
         <View style={styles.infoContainer}>
                 <InfoText dataInput={`${limitUnits} units`}>Weekly Allowance:</InfoText>

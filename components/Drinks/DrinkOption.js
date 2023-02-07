@@ -50,7 +50,7 @@ export default function DrinkOption({item, newDrink, date}) {
             {IconComponent}
         </View>
         <View style={styles.infoContainer}>
-            <Text style={{fontWeight: 'bold', fontSize: 18}} >{item.name}</Text>
+            <Text style={{fontWeight: 'bold', fontSize: 14}} >{item.name}</Text>
             <Text style={{fontWeight: 'bold'}} >{item.volume} ml</Text>
             <Text style={{fontWeight: 'bold'}} >{item.strength}%</Text>
             <Text style={{fontWeight: 'bold'}}>{Math.round(item.volume*(item.strength/100))/10} units</Text>

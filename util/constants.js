@@ -42,11 +42,28 @@ export const GlobalConstants = {
         {
             id: 105,
             name: 'Cocktail',
-            icon: 'md-wine',
-            provider: 'Ionicons',
-            strength: 12.5,
-            volume: 250
+            icon: 'glass-cocktail',
+            provider: 'MaterialCommunityIcons',
+            strength: 18,
+            volume: 180
+        },
+        {
+            id: 106,
+            name: 'Shot',
+            icon: 'local-drink',
+            provider: 'MaterialIcons',
+            strength: 40,
+            volume: 44
+        },
+        {
+            id: 107,
+            name: 'Champagne',
+            icon: 'glass-flute',
+            provider: 'MaterialCommunityIcons',
+            strength: 12,
+            volume: 135
         }
+
 
         
     ]
